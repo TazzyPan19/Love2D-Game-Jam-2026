@@ -14,6 +14,9 @@ local colorSet = {
     teal = {
         rgba = {67, 234, 200, toHexidecimalNum(1.0)},
         hex = "#43eac8"},
+    orange = {
+        rgba = {234, 170, 67, toHexidecimalNum(1.0)},
+        hex = "#eaaa43"},
 }
 
 local colorDebug = false

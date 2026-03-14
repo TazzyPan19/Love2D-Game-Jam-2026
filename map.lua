@@ -1,5 +1,6 @@
 local map = {}
 local flavor = require('color')
+local winW, winH = love.graphics.getWidth(), love.graphics.getHeight()
 
 function map.load()
 
