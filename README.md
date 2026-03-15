@@ -1,4 +1,4 @@
-## Love2D Game Jam 2026
+# Love2D Game Jam 2026
 
 How to Play
 
