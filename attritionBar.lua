@@ -14,7 +14,7 @@ function attrition.draw()
     local rw, rh = 900, 80
     local rx, ry = (winW / 2) - (rw / 2), winH / 1.1 - (rh / 2)
     local setAttritionValue = attrition.setValue(rw, 450)
-    attrition.checkWinCondition(rw, setAttritionValue)
+    -- attrition.checkWinCondition(rw, setAttritionValue)
     
     love.graphics.setColor(love.math.colorFromBytes((flavor.setColorFormat("white", isOpaque))))
     love.graphics.rectangle('fill', rx, ry, rw, rh)

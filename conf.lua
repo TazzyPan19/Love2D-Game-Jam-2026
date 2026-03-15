@@ -3,7 +3,7 @@ function love.conf(t)
     t.version = major .. '.' .. minor
 
     t.title = "Defense Attack"
-    t.window.width = 1080
-    t.window.height = 1080
+    t.window.width = 1280
+    t.window.height = 720
     t.console = true
 end

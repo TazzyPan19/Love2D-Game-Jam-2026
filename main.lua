@@ -8,6 +8,7 @@ end
 
 function love.update(dt)
     attrition.update(dt)
+    map.update(dt)
 end
 
 function love.draw()
