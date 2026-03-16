@@ -1,21 +1,18 @@
 local color = {}
-
-function toHexidecimalNum(num)
-    return math.ceil(num * 255)
-end
+local utils = require('utils')
 
 local colorSet = {
     white = {
-        rgba = {255, 255, 255, toHexidecimalNum(1.0)},
+        rgba = {255, 255, 255, utils:toHexidecimalNum(1.0)},
         hex = "#ffffff"},
     red = {
-        rgba = {231, 30, 30, toHexidecimalNum(1.0)},
+        rgba = {231, 30, 30, utils:toHexidecimalNum(1.0)},
         hex = "#e71e1e"},
     teal = {
-        rgba = {67, 234, 200, toHexidecimalNum(1.0)},
+        rgba = {67, 234, 200, utils:toHexidecimalNum(1.0)},
         hex = "#43eac8"},
     orange = {
-        rgba = {234, 170, 67, toHexidecimalNum(1.0)},
+        rgba = {234, 170, 67, utils:toHexidecimalNum(1.0)},
         hex = "#eaaa43"},
 }
 
