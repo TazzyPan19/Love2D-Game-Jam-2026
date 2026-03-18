@@ -1,33 +1,25 @@
 local globals = require("globals")
-local map = require("map")
-local attrition = require("attritionBar")
-local walls = require('walls')
--- local gridPattern = require('gridPattern')
--- local gridSquare = require('gridSquare')
+local map = require("src/map")
+local attrition = require("src/attritionBar")
+local walls = require('src/walls')
+local grid = require('src/grid')
 
 function love.load()
     globals.initialize()
-    -- gridSquare:load()
+    grid:load()
 end
 
 function love.update(dt)
-    -- gridSquare:update(dt)
-    -- attrition.update(dt)
-    map.update(dt)
-    -- gridPattern:update(dt)
+    grid:update(dt)
 end
 
 function love.draw()
-    -- gridSquare:draw()
-    -- gridPattern:draw()
-    -- walls:draw()
-    map.draw()
-    -- attrition.draw()
+    grid:draw()
 end
 
 function love.mousepressed(x, y, button)
-	if button == 1 then
-		walls:new(x, y, 10, 200)
-	end
+	-- if button == 1 then
+	-- 	walls:new(x, y, 10, 200)
+	-- end
 end
 

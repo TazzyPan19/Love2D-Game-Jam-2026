@@ -1,5 +1,5 @@
 local color = {}
-local utils = require('utils')
+local utils = require('src/tools/utils')
 
 local colorSet = {
     white = {

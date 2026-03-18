@@ -1,9 +1,9 @@
 local attrition = {}
-local flavor = require('color')
+local flavor = require('src/tools/color')
 local winW, winH = love.graphics.getWidth(), love.graphics.getHeight()
 
 function attrition.load()
-    startingValue = 0
+    
 end
 
 function attrition.update(dt)

@@ -1,8 +1,9 @@
 local walls = {}
-currentWalls = {}
 walls.__index = walls
 
-local flavor = require('color')
+currentWalls = {}
+
+local flavor = require('src/tools/color')
 local winW, winH = love.graphics.getWidth(), love.graphics.getHeight()
 
 function walls:new(x, y, width, height)
@@ -22,9 +23,9 @@ function walls:update(dt)
 end
 
 function walls:draw()
-    for k, v in pairs(currentWalls) do
+    for _, wall in pairs(currentWalls) do
         love.graphics.setColor(love.math.colorFromBytes((flavor.setColorFormat("white", isOpaque))))
-        love.graphics.rectangle('fill', v.x - (v.width/2), v.y - (v.height/2), v.width, v.height)
+        love.graphics.rectangle('fill', wall.x - (wall.width/2), wall.y - (wall.height/2), wall.width, wall.height)
 	end
 end
 
