@@ -3,23 +3,21 @@ local map = require("src/map")
 local attrition = require("src/attritionBar")
 local walls = require('src/walls')
 local grid = require('src/grid')
+local gridSnapping = require('src/untested/gridSnapping')
 
 function love.load()
     globals.initialize()
-    grid:load()
+    gridSnapping:load()
 end
 
 function love.update(dt)
-    grid:update(dt)
+    gridSnapping:update(dt)
 end
 
 function love.draw()
-    grid:draw()
+    gridSnapping:draw()
 end
 
 function love.mousepressed(x, y, button)
-	-- if button == 1 then
-	-- 	walls:new(x, y, 10, 200)
-	-- end
 end
 
