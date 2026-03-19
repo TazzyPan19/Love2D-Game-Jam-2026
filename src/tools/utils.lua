@@ -51,20 +51,4 @@ function utils:getTextDimensions(text)
     return textW, textH
 end
 
--- function utils:createMultipleInstances(instance, args)
---     if type(options) == 'table' then
---         instance:new(args)
---     end
--- end
-
--- local randList = {}
-
--- for i=1, 3 do
---     randList["key" .. i] = i *4
--- end
-
--- for k,v in pairs(randList) do
---     print(k, v)
--- end
-
 return utils
