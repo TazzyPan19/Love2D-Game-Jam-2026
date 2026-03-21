@@ -1,8 +1,8 @@
-local itemBar = {}
+local resourceBar = {}
 
 local numOfItems = 1
 
-function itemBar:load()
+function resourceBar:load()
     self.itemBar = {}
     self.itemBar.x = 200
     self.itemBar.y = 550
@@ -14,11 +14,11 @@ function itemBar:load()
     self.itemBox.height = 80
 end
 
-function itemBar:update(dt)
+function resourceBar:update(dt)
     return
 end
 
-function itemBar:draw()
+function resourceBar:draw()
     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
     love.graphics.rectangle('fill', self.itemBar.x, self.itemBar.y, self.itemBar.width, self.itemBar.height)
     
@@ -42,7 +42,7 @@ function itemBar:draw()
     end
 end
 
-function itemBar:button(button)
+function resourceBar:button(button)
     if button == 1 then
         numOfItems = numOfItems + 1
     end
@@ -121,4 +121,4 @@ end
 --     love.graphics.rectangle('fill', itemBarCenterX + cx + (160 + 80), itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
 -- end
 
-return itemBar
+return resourceBar
