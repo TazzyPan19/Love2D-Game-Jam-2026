@@ -4,20 +4,22 @@ local attrition = require("src/attritionBar")
 local walls = require('src/walls')
 local grid = require('src/grid')
 local gridSnapping = require('src/testing/gridSnapping')
+local itemBar = require('src/testing/itemBar')
 
 function love.load()
     globals.initialize()
-    gridSnapping:load()
+    itemBar:load()
 end
 
 function love.update(dt)
-    gridSnapping:update(dt)
+    itemBar:update(dt)
 end
 
 function love.draw()
-    gridSnapping:draw()
+    itemBar:draw()
 end
 
 function love.mousepressed(x, y, button)
+    itemBar:button(button)
 end
 
