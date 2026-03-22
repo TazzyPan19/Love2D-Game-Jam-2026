@@ -2,10 +2,11 @@ local turret = {}
 turret.__index = turret
 
 spawnProjectile = require("src/testing/spawnProjectile")
+count = 0
 
 local distX, distY = 0, 0 
+local mx, my = 0
 local distance = 0
-local angle = 0
 
 function turret:new(x, y, radius)
     local instance = setmetatable({}, turret)
@@ -39,22 +40,10 @@ function turret:draw()
     spawnProjectile:draw()
 end
 
-function turret:withinBounds()
-    local mx, my = love.mouse.getPosition()
-
-    local dx = mx - self.x
-    local dy = my - self.y
-    local distance = (dx*dx + dy*dy)
-
-    if distance < (self.radius * self.radius) then
-        print('Winthin-bounds')
-        return true
-    end
-end
-
 function turret:button(button)
     if button == 1 then
-        spawnProjectile:new(self.x, self.y)
+        count = count + 1
+        spawnProjectile:new(self.x, self.y, count)
     end
 end
 
