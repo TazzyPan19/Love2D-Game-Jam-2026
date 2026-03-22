@@ -1,124 +1,87 @@
 local resourceBar = {}
+local itemWalls = require('src/testing/itemWalls')
 
-local numOfItems = 1
+local numOfItems = 0
+local padding = 0
+local exceededLength = false
+local itemW, itemH = 0, 0
+
+local listItems = {}
 
 function resourceBar:load()
-    self.itemBar = {}
-    self.itemBar.x = 200
-    self.itemBar.y = 550
-    self.itemBar.width = 880
-    self.itemBar.height = 150
+    self.x = 200
+    self.y = 550
+    self.width = 880
+    self.height = 150
 
-    self.itemBox = {}
-    self.itemBox.width = 80
-    self.itemBox.height = 80
+    itemW, itemH = itemWalls:getDimensions()
 end
 
 function resourceBar:update(dt)
-    return
+    itemWalls:update(dt)
 end
 
 function resourceBar:draw()
-    love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
-    love.graphics.rectangle('fill', self.itemBar.x, self.itemBar.y, self.itemBar.width, self.itemBar.height)
-    
-    local itemBarCenterX, itemBarCenterY = self.itemBar.x - (self.itemBox.width / 2),  self.itemBar.y - (self.itemBox.height / 2)
-    local cx = self.itemBox.width
-    local cy = self.itemBar.height / 2
-    local padding = 0
-    -- local textW, textH = getTextDimensions(text)
-    
-    love.graphics.setColor(love.math.colorFromBytes(12, 133, 24))
+    love.graphics.setColor(love.math.colorFromBytes(133, 133, 255))
+    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 
-    for i=1, numOfItems do
-        if i >= 2 then
-            padding = padding + (self.itemBox.width + (self.itemBox.width / 2))
-        end
-        if padding + (self.itemBox.width + (self.itemBox.width / 2)) > self.itemBar.width then
-            print('Exceeded! item bar length. Can not insert more items')
-            break
-        end
-        love.graphics.rectangle('fill', itemBarCenterX + cx + padding, itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
+    itemWalls:drawAll()
+end
+
+function resourceBar:addItemData(x, y, width, height, itemWidth, itemHeight)
+    local randQty = math.random(1, 10)
+    local rex, rey = x, y + itemHeight/2
+    local rew, reh = width, height
+    
+    if numOfItems <= 1 and not exceededLength then
+        padding = padding + 40
+        table.insert(listItems, {x = rex + padding, y = rey, qty = randQty})
+    elseif numOfItems > 1 and not exceededLength then
+        padding = padding + 100
+        table.insert(listItems, {x = rex + padding, y = rey, qty = randQty})
+    end
+
+    if padding + ((itemWidth *2) + 40) > self.width then
+        exceededLength = true
+        print('Exceeded! item bar length. Can not insert more items')
     end
 end
 
 function resourceBar:button(button)
     if button == 1 then
         numOfItems = numOfItems + 1
+        self:addItemData(self.x, self.y, self.width, self.height, itemW, itemH)
+        
+        for _, item in ipairs(listItems) do
+            itemWalls:new(item.x, item.y, item.qty)
+        end
     end
 end
 
-function getTextDimensions(text)
-    local font = love.graphics.getFont()
-    local textW = font:getWidth(text)
-	local textH = font:getHeight()
+return resourceBar
 
-    return textW, textH
-end
+-- TODO remove old draw function below
 
--- function itemBar:draw()
---     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
---     love.graphics.rectangle('fill', self.itemBar.x, self.itemBar.y, self.itemBar.width, self.itemBar.height)
-
---     local offset = 0
---     local cx = 0
-
---     for i=1, numOfItems do
---         local itemBarCenterX, itemBarCenterY = self.itemBar.x - (self.itemBox.width / 2),  self.itemBar.y - (self.itemBox.height / 2)
---         cx = self.itemBar.width / (numOfItems + i)
---         local cy = self.itemBar.height / 2
---         -- local totalSpanWidth = 0
-
---         if cx < self.itemBox.width then
---             print('Exceeded! item bar length. Can not insert more items')
---             break
---         end
-
---         love.graphics.setColor(love.math.colorFromBytes(0, 0, 0))
---         love.graphics.rectangle('fill', itemBarCenterX + cx, itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
---     end
--- end
-
--- function itemBar:draw()
---     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
---     love.graphics.rectangle('fill', self.itemBar.x, self.itemBar.y, self.itemBar.width, self.itemBar.height)
-
---     local totalSpanWidth = 0
-    
---     for i=1, numOfItems do
---         local addSpace = 0
---         local itemBarCenterX, itemBarCenterY = self.itemBar.x - (self.itemBox.width / 2),  self.itemBar.y - (self.itemBox.height / 2)
---         local cy = self.itemBar.height / 2
---         totalSpanWidth = totalSpanWidth + ((self.itemBox.width / 2) + 20)
-
---         if i >= 2 then
---             addSpace = 60
---         elseif i >= 3 then
---             addSpace = 60
---         end
-
---         -- if totalSpanWidth > self.itemBar.width then
---         --     print('Exceeded! item bar length. Can not insert more items')
---         --     break
---         -- end
-
---         love.graphics.setColor(love.math.colorFromBytes(0, 0, 0))
---         love.graphics.rectangle('fill', itemBarCenterX + totalSpanWidth + addSpace, itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
---     end
--- end
-
--- function itemBar:draw()
+-- function resourceBar:draw()
 --     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
 --     love.graphics.rectangle('fill', self.itemBar.x, self.itemBar.y, self.itemBar.width, self.itemBar.height)
     
 --     local itemBarCenterX, itemBarCenterY = self.itemBar.x - (self.itemBox.width / 2),  self.itemBar.y - (self.itemBox.height / 2)
 --     local cx = self.itemBox.width
 --     local cy = self.itemBar.height / 2
+--     local padding = 0
+--     -- local textW, textH = getTextDimensions(text)
+    
+--     love.graphics.setColor(love.math.colorFromBytes(12, 133, 24))
 
---     love.graphics.setColor(love.math.colorFromBytes(0, 0, 0))
---     love.graphics.rectangle('fill', itemBarCenterX + cx, itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
---     love.graphics.rectangle('fill', itemBarCenterX + cx + (80 + 40), itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
---     love.graphics.rectangle('fill', itemBarCenterX + cx + (160 + 80), itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
+--     for i=1, numOfItems do
+--         if i >= 2 then
+--             padding = padding + (self.itemBox.width + (self.itemBox.width / 2))
+--         end
+--         if padding + (self.itemBox.width + (self.itemBox.width / 2)) > self.itemBar.width then
+--             print('Exceeded! item bar length. Can not insert more items')
+--             break
+--         end
+--         love.graphics.rectangle('fill', itemBarCenterX + cx + padding, itemBarCenterY + cy, self.itemBox.width, self.itemBox.height)
+--     end
 -- end
-
-return resourceBar
